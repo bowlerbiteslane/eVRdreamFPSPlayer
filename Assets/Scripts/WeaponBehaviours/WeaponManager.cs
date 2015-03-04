@@ -80,7 +80,7 @@ public class WeaponManager : MonoBehaviour {
 
     void ChangeWeapon(int index)
     {
-        if (!(index > inventory.Length) && inventory[index] != null)
+        if (!(index > inventory.Length) && inventory[index] != null && inventory.Length >= 1)
         {
             currentWeapon.SetActive(false);
             currentWeapon = inventory[index].gameObject;
@@ -96,20 +96,44 @@ public class WeaponManager : MonoBehaviour {
         
     }
 
-    void AddWeapon(WeaponBehaviour weapon)
+    public void AddWeapon(WeaponBehaviour weapon)
     {
-        if (weapon.WeaponIndex < inventorySize)
+        int wIndex = weapon.WeaponIndex;
+        // Check if the weapons index is within the inventory bounds
+        if (wIndex < inventorySize)
         {
-            if (inventory[weapon.WeaponIndex] == null)
+            // check if inventory is empty so that we can later set the current weapon to this one
+            bool inventoryEmpty = true;
+            for (int i = 0; i < inventory.Length; i++)
             {
-                inventory[weapon.WeaponIndex] = weapon;
+                if (inventory[i] != null || inventory.Length == 0)
+                {
+                    inventoryEmpty = false;
+                }
+                Debug.Log("Inventory is Empty.");
+            }
+
+            // add the current weapon
+            if (inventory[wIndex] == null)
+            {
+                inventory[wIndex] = weapon;
             }
             else
             {
-                DropWeapon(inventory[weapon.WeaponIndex].GetComponent<WeaponBehaviour>());
+                DropWeapon(inventory[wIndex].GetComponent<WeaponBehaviour>());
                 inventory[weapon.WeaponIndex] = weapon;
             }
             Debug.Log(weapon.gameObject + " added to weaponmanager at index = " + weapon.WeaponIndex);
+
+            
+            // if there is only one weapon in inventory then make it the current weapon
+            if (inventoryEmpty)
+            {
+                currentWeapon = inventory[wIndex].gameObject;
+                currentWeapon.SetActive(true);
+                currentWeaponBehaviour = currentWeapon.GetComponent<WeaponBehaviour>();
+                Debug.Log("Set the new current weapon to first weapon picked up.");
+            }
         }
         else
         {
@@ -122,5 +146,8 @@ public class WeaponManager : MonoBehaviour {
     {
         Debug.Log(inventory[weapon.WeaponIndex].gameObject + " being dropped by weaponmanager at index = " + inventory[weapon.WeaponIndex]);
         inventory[weapon.WeaponIndex] = null;
+        //currently this script just empties a place for any added weapons with the same index as one already in inventory
     }
+
+
 }

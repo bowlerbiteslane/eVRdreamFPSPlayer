@@ -19,6 +19,8 @@ public class GunBehaviour : WeaponBehaviour
 
     public float reloadTime = 5f;
 
+    public bool DEBUGMODE;
+
     public AudioClip dryFireClip = null;
     private AudioSource gunshotAudio = null;
     private AudioClip fireClip = null;
@@ -27,7 +29,7 @@ public class GunBehaviour : WeaponBehaviour
     private float timeCnt;
     private float rldTimeCnt;
 
-    private GameObject pointLight;
+    private Light pointLight;
 
     private string debugString;
 
@@ -65,7 +67,7 @@ public class GunBehaviour : WeaponBehaviour
         currentSpareClips = (int)Mathf.Clamp((float)currentSpareClips, 0f, (float)maxSpareClips);
         timeCnt = 0f;
         rldTimeCnt = 0f;
-        pointLight = GameObject.Find("BarrelEnd/Point light");
+        pointLight = GetComponentInChildren<Light>();
         gunshotAudio = gameObject.GetComponent<AudioSource>();
         fireClip = gunshotAudio.clip;
         if (pointLight == null)
@@ -89,7 +91,7 @@ public class GunBehaviour : WeaponBehaviour
         {
             //disable point light
             pointLightOn = false;
-            pointLight.light.enabled = false;
+            pointLight.enabled = false;
             timeCnt = 0f;
         }
         rldTimeCnt += Time.deltaTime;
@@ -101,7 +103,8 @@ public class GunBehaviour : WeaponBehaviour
             rldTimeCnt = 0f;
             debugString = "Reloaded.";
         }
-        Debug.Log(debugString);
+        if(DEBUGMODE)
+            Debug.Log(debugString);
     }
 
 
@@ -114,7 +117,7 @@ public class GunBehaviour : WeaponBehaviour
             debugString = "[Ammo In Clip: " + ammoInCurrentClip + "] [Spare Clips: " + currentSpareClips + "] [Total Ammo: " + (ammoInCurrentClip + (clipSize * currentSpareClips)+"]");
             // other gun effects
             pointLightOn = true;
-            pointLight.light.enabled = true;
+            pointLight.enabled = true;
             timeCnt = 0f;
             gunshotAudio.Play();
             return true;
@@ -168,7 +171,7 @@ public class GunBehaviour : WeaponBehaviour
         }
         else
         {
-            Debug.Log("Already at max clip capacity.");
+            debugString = "Already at max clip capacity.";
         }
     }
 

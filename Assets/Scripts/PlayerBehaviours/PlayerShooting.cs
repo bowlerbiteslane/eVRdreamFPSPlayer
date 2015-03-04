@@ -4,7 +4,7 @@ using System.Collections;
 public class PlayerShooting : MonoBehaviour {
     Camera playerCamera;
 
-    public WeaponManager weaponManager = null;
+    private WeaponManager weaponManager = null;
 
     public float shotOffsetModifer = 0.05f;
 
@@ -29,6 +29,7 @@ public class PlayerShooting : MonoBehaviour {
 
     void Awake()
     {
+        weaponManager = GetComponentInChildren<WeaponManager>();
         rayLayerMask = ~rayLayerMask;                       // invert layer mask, otherwise the ray would only hit the player
         playerCamera = Camera.main;
         impacts = new GameObject[impactCount];
@@ -56,7 +57,7 @@ public class PlayerShooting : MonoBehaviour {
         // on player fire
         if (wb != null && Input.GetButton("Fire1") && nextFire >= wb.FireRate)                                                                                                   // check if the player pulls the trigger and the gun is within it's firing rate
         {
-            if (weaponManager.CurrentWeaponBehaviour.TriggerAttack()) // returns true if the player is not reloading or not out of ammo
+            if (wb.TriggerAttack()) // returns true if the player is not reloading or not out of ammo
             { 
 
                 //calculate shot inaccuracy
