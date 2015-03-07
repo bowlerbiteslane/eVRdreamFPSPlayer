@@ -124,8 +124,10 @@ public class PlayerShooting : MonoBehaviour {
                     // handle action events after creating impact
                     if (rayHit.transform.gameObject.tag == "Enemy")
                     {
-                        if (rayHit.transform.gameObject.GetComponent<HealthManager>() != null)
-                            rayHit.transform.gameObject.GetComponent<HealthManager>().TakeDamage(weaponManager.CurrentWeapon.GetComponent<WeaponBehaviour>().WeaponDamage);
+                        /*if (rayHit.transform.gameObject.GetComponent<HealthManager>() != null)
+                            rayHit.transform.gameObject.GetComponent<HealthManager>().TakeDamage(weaponManager.CurrentWeapon.GetComponent<WeaponBehaviour>().WeaponDamage);*/
+                        if (rayHit.transform.gameObject.GetComponent<EnemyDamage>() != null)
+                            rayHit.transform.gameObject.GetComponent<EnemyDamage>().TakeDamage(weaponManager.CurrentWeapon.GetComponent<WeaponBehaviour>().WeaponDamage);
                         else
                             Debug.Log("Game Object: " + rayHit.transform.gameObject + " is tagged enemy, but does not have a HealthManager Script");
                     }
