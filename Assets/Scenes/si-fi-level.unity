@@ -4892,7 +4892,7 @@ MonoBehaviour:
   rayLayerMask:
     serializedVersion: 2
     m_Bits: 260
-  SCRIPTDEBUG: 0
+  SCRIPTDEBUG: 1
 --- !u!114 &478433572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16444,6 +16444,10 @@ Prefab:
       propertyPath: m_LocalScale.z
       value: .5
       objectReference: {fileID: 0}
+    - target: {fileID: 11462302, guid: 1d873ce177bf5984b921a551da5a6a41, type: 2}
+      propertyPath: SCRIPTDEBUG
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d873ce177bf5984b921a551da5a6a41, type: 2}
   m_RootGameObject: {fileID: 478433568}
@@ -20294,7 +20298,7 @@ GameObject:
   - 4: {fileID: 1917612094}
   m_Layer: 0
   m_Name: Si-fi-Evironment
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -23133,6 +23137,10 @@ Prefab:
     - target: {fileID: 195674, guid: 959ed76c3b0ddb14382e6a421500a0f1, type: 2}
       propertyPath: m_StaticEditorFlags
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 196086, guid: 959ed76c3b0ddb14382e6a421500a0f1, type: 2}
+      propertyPath: m_TagString
+      value: Finish
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 959ed76c3b0ddb14382e6a421500a0f1, type: 2}
